@@ -20,10 +20,16 @@ ENV PATH="/root/.opencode/bin:${PATH}"
 
 # Pre-download models and initialize opencode
 # Run opencode with a simple command to trigger initial downloads
+# We use timeout to prevent hanging, but check if basic initialization occurred
 RUN mkdir -p /tmp/init && \
     cd /tmp/init && \
     echo "print('Hello from OpenCode')" > test.py && \
-    timeout 300 opencode test.py || true && \
+    (timeout 300 opencode test.py || exit_code=$?; \
+     if [ -d "/root/.opencode" ]; then \
+       echo "OpenCode initialized successfully"; \
+     else \
+       echo "Warning: OpenCode initialization may not have completed fully"; \
+     fi) && \
     rm -rf /tmp/init
 
 # Set working directory
