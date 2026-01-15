@@ -1,0 +1,24 @@
+# Docker build cache and artifacts
+# Note: .dockerignore is tracked in version control
+
+# Temporary files
+*.tmp
+*.log
+/tmp/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+*.tar
+*.tar.gz
